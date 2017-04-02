@@ -16,9 +16,11 @@ import Bootstrap.Modal as Modal
 init : (Model, Cmd Msg)
 init =
       ( Model Nothing 1 Nothing Nothing "" False Modal.hiddenState True True [] [] [] [] []
-      ["#29c6cd","#f6e4c4", "#fea386", "#2980b9", "#a2d5f2", "#1fab89", "#aea1ea", "#ebe9f6", "#ffce3e", "#ff4D4D", "#ff5200", "#ebe9f6" ]
+      ["#f98a02", "#2980b9", "#a2d5f2", "#127228", "#aea1ea", "#ffce3e", "#e22222", "#29c6cd", "#76f168", "#824a78", "#776d54"]
       , getSchools
       )
+
+
 
 {-| The update function -}
 update : Msg -> Model -> (Model, Cmd Msg)

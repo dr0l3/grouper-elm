@@ -106,7 +106,7 @@ var _user$project$Util_Util$divideStudentsFixedAmountOfGroups = F4(
 	function (colors, index, numberOfGroups, students) {
 		var color = A2(
 			_elm_lang$core$Array$get,
-			index,
+			index - 1,
 			_elm_lang$core$Array$fromList(colors));
 		var groups = A2(_elm_lang$core$Basics$max, 1, numberOfGroups);
 		var numberOfStudents = _elm_lang$core$Basics$ceiling(

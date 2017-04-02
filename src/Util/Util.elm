@@ -14,7 +14,7 @@ divideStudentsFixedAmountOfGroups colors index numberOfGroups students =
     let
         groups = max 1 numberOfGroups -- numberOfGroups might be zero
         numberOfStudents = ceiling ((toFloat (List.length students))  / groups)
-        color =  Array.get index (Array.fromList colors)
+        color =  Array.get (index-1) (Array.fromList colors)
     in
         case take numberOfStudents students of
             [] -> []
