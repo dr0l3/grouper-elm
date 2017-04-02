@@ -219,7 +219,7 @@ exportModal model =
         |> Modal.footer []
             [ Button.button [Button.attrs [onClick (Export Modal.hiddenState)]] [text "close"]
             , Checkbox.custom [Checkbox.onCheck ToggleTableHeader, Checkbox.disabled (not model.matrix), Checkbox.checked model.showTableHeaderModal] "Toggle Table header"
-            , Checkbox.custom [Checkbox.onCheck ToggleMatrix] "Toggle Matrix"]
+            , Checkbox.custom [Checkbox.onCheck ToggleMatrix, Checkbox.checked model.matrix] "Toggle Matrix"]
         |> Modal.view model.exportVisible
 
 showStudentModal: Model -> Html.Html Msg
