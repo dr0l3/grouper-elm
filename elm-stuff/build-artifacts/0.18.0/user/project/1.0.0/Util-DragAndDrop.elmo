@@ -1,0 +1,25 @@
+var _user$project$Util_DragAndDrop$onPreventHelper = F2(
+	function (eventName, message) {
+		return A3(
+			_elm_lang$html$Html_Events$onWithOptions,
+			eventName,
+			{preventDefault: true, stopPropagation: false},
+			_elm_lang$core$Json_Decode$succeed(message));
+	});
+var _user$project$Util_DragAndDrop$onDragHelper = F2(
+	function (eventName, message) {
+		return A3(
+			_elm_lang$html$Html_Events$onWithOptions,
+			eventName,
+			{preventDefault: false, stopPropagation: false},
+			_elm_lang$core$Json_Decode$succeed(message));
+	});
+var _user$project$Util_DragAndDrop$onDrop = function (message) {
+	return A2(_user$project$Util_DragAndDrop$onPreventHelper, 'drop', message);
+};
+var _user$project$Util_DragAndDrop$onDragStart = function (message) {
+	return A2(_user$project$Util_DragAndDrop$onDragHelper, 'dragstart', message);
+};
+var _user$project$Util_DragAndDrop$onDragEnd = function (message) {
+	return A2(_user$project$Util_DragAndDrop$onDragHelper, 'dragend', message);
+};

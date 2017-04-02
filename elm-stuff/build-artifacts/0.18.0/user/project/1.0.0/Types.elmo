@@ -1,0 +1,92 @@
+var _user$project$Types$SchoolClass = F3(
+	function (a, b, c) {
+		return {name: a, id: b, schoolId: c};
+	});
+var _user$project$Types$School = F2(
+	function (a, b) {
+		return {name: a, id: b};
+	});
+var _user$project$Types$Student = F2(
+	function (a, b) {
+		return {firstname: a, secondname: b};
+	});
+var _user$project$Types$Group = F3(
+	function (a, b, c) {
+		return {students: a, number: b, color: c};
+	});
+var _user$project$Types$Model = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return function (k) {
+											return function (l) {
+												return {movingStudent: a, numberOfGroups: b, selectedSchool: c, selectedSchoolClass: d, debug: e, matrix: f, groups: g, students: h, removedStudents: i, schoolClasses: j, schools: k, colors: l};
+											};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _user$project$Types$DropOn = function (a) {
+	return {ctor: 'DropOn', _0: a};
+};
+var _user$project$Types$CancelMove = {ctor: 'CancelMove'};
+var _user$project$Types$Move = function (a) {
+	return {ctor: 'Move', _0: a};
+};
+var _user$project$Types$AddStudent = function (a) {
+	return {ctor: 'AddStudent', _0: a};
+};
+var _user$project$Types$RemoveStudent = function (a) {
+	return {ctor: 'RemoveStudent', _0: a};
+};
+var _user$project$Types$AssignRandomizedGroup = function (a) {
+	return {ctor: 'AssignRandomizedGroup', _0: a};
+};
+var _user$project$Types$RandomizeGroups = {ctor: 'RandomizeGroups'};
+var _user$project$Types$ToggleMatrix = function (a) {
+	return {ctor: 'ToggleMatrix', _0: a};
+};
+var _user$project$Types$SelectMaxStudentsInGroup = function (a) {
+	return {ctor: 'SelectMaxStudentsInGroup', _0: a};
+};
+var _user$project$Types$SelectMinStudentsInGroup = function (a) {
+	return {ctor: 'SelectMinStudentsInGroup', _0: a};
+};
+var _user$project$Types$SelectNumberOfGroups = function (a) {
+	return {ctor: 'SelectNumberOfGroups', _0: a};
+};
+var _user$project$Types$NewStudents = function (a) {
+	return {ctor: 'NewStudents', _0: a};
+};
+var _user$project$Types$FetchStudents = {ctor: 'FetchStudents'};
+var _user$project$Types$SelectSchoolClass = function (a) {
+	return {ctor: 'SelectSchoolClass', _0: a};
+};
+var _user$project$Types$NewClasses = function (a) {
+	return {ctor: 'NewClasses', _0: a};
+};
+var _user$project$Types$FetchClasses = {ctor: 'FetchClasses'};
+var _user$project$Types$SelectSchool = function (a) {
+	return {ctor: 'SelectSchool', _0: a};
+};
+var _user$project$Types$NewSchools = function (a) {
+	return {ctor: 'NewSchools', _0: a};
+};
+var _user$project$Types$FetchSchools = {ctor: 'FetchSchools'};
+var _user$project$Types$DebugMessage = function (a) {
+	return {ctor: 'DebugMessage', _0: a};
+};
+var _user$project$Types$NoOp = {ctor: 'NoOp'};

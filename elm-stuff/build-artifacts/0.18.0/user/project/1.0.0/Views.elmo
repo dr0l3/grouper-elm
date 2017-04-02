@@ -1,0 +1,823 @@
+var _user$project$Views$studentListItemRemoved = function (student) {
+	var lastname = A2(_elm_lang$core$String$left, 1, student.secondname);
+	var firstname = function () {
+		var _p0 = _elm_lang$core$List$head(
+			A2(_elm_lang$core$String$split, ' ', student.firstname));
+		if (_p0.ctor === 'Nothing') {
+			return 'No first name';
+		} else {
+			return _p0._0;
+		}
+	}();
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_ListGroup$li,
+		{
+			ctor: '::',
+			_0: _rundis$elm_bootstrap$Bootstrap_ListGroup$attrs(
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('justify-content-between'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					firstname,
+					A2(_elm_lang$core$Basics_ops['++'], ' ', lastname))),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_rundis$elm_bootstrap$Bootstrap_Button$button,
+					{
+						ctor: '::',
+						_0: _rundis$elm_bootstrap$Bootstrap_Button$small,
+						_1: {
+							ctor: '::',
+							_0: _rundis$elm_bootstrap$Bootstrap_Button$attrs(
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(
+										_user$project$Types$AddStudent(student)),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('float-right'),
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('+'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Views$studentListRemoved = function (students) {
+	return _rundis$elm_bootstrap$Bootstrap_ListGroup$ul(
+		A2(_elm_lang$core$List$map, _user$project$Views$studentListItemRemoved, students));
+};
+var _user$project$Views$studentListItem = function (student) {
+	var lastname = A2(_elm_lang$core$String$left, 1, student.secondname);
+	var firstname = function () {
+		var _p1 = _elm_lang$core$List$head(
+			A2(_elm_lang$core$String$split, ' ', student.firstname));
+		if (_p1.ctor === 'Nothing') {
+			return 'No first name';
+		} else {
+			return _p1._0;
+		}
+	}();
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_ListGroup$li,
+		{
+			ctor: '::',
+			_0: _rundis$elm_bootstrap$Bootstrap_ListGroup$attrs(
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('justify-content-between'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					firstname,
+					A2(_elm_lang$core$Basics_ops['++'], ' ', lastname))),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_rundis$elm_bootstrap$Bootstrap_Button$button,
+					{
+						ctor: '::',
+						_0: _rundis$elm_bootstrap$Bootstrap_Button$small,
+						_1: {
+							ctor: '::',
+							_0: _rundis$elm_bootstrap$Bootstrap_Button$attrs(
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(
+										_user$project$Types$RemoveStudent(student)),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('float-right'),
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('-'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Views$studentList = function (students) {
+	return _rundis$elm_bootstrap$Bootstrap_ListGroup$ul(
+		A2(_elm_lang$core$List$map, _user$project$Views$studentListItem, students));
+};
+var _user$project$Views$schoolClassSelect = function (schoolClass) {
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_Form_Select$item,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(schoolClass.name),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Views$schoolSelect = function (school) {
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_Form_Select$item,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(school.name),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Views$numberSelect = function (number) {
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_Form_Select$item,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(
+				_elm_lang$core$Basics$toString(number)),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Views$customHandler = F2(
+	function (message, input) {
+		var _p2 = _elm_lang$core$String$toInt(input);
+		if (_p2.ctor === 'Err') {
+			return _user$project$Types$DebugMessage(_p2._0);
+		} else {
+			return message(_p2._0);
+		}
+	});
+var _user$project$Views$studentView = function (student) {
+	var lastname = A2(_elm_lang$core$String$left, 1, student.secondname);
+	var firstname = function () {
+		var _p3 = _elm_lang$core$List$head(
+			A2(_elm_lang$core$String$split, ' ', student.firstname));
+		if (_p3.ctor === 'Nothing') {
+			return 'No first name';
+		} else {
+			return _p3._0;
+		}
+	}();
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('text-center'),
+			_1: {
+				ctor: '::',
+				_0: A2(_elm_lang$html$Html_Attributes$attribute, 'draggable', 'true'),
+				_1: {
+					ctor: '::',
+					_0: _user$project$Util_DragAndDrop$onDragEnd(_user$project$Types$CancelMove),
+					_1: {
+						ctor: '::',
+						_0: _user$project$Util_DragAndDrop$onDragStart(
+							_user$project$Types$Move(student)),
+						_1: {
+							ctor: '::',
+							_0: A2(_elm_lang$html$Html_Attributes$attribute, 'ondragstart', 'event.dataTransfer.setData(\"text/plain\", \"dummy\")'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$style(
+									{
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'min-width', _1: '120px'},
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					firstname,
+					A2(_elm_lang$core$Basics_ops['++'], ' ', lastname))),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Views$matrixStudentView = function (student) {
+	var lastname = A2(_elm_lang$core$String$left, 1, student.secondname);
+	var firstname = function () {
+		var _p4 = _elm_lang$core$List$head(
+			A2(_elm_lang$core$String$split, ' ', student.firstname));
+		if (_p4.ctor === 'Nothing') {
+			return 'No first name';
+		} else {
+			return _p4._0;
+		}
+	}();
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_Grid$col,
+		{
+			ctor: '::',
+			_0: _rundis$elm_bootstrap$Bootstrap_Grid_Col$attrs(
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('text-center'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					firstname,
+					A2(_elm_lang$core$Basics_ops['++'], ' ', lastname))),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Views$studentTd = function (student) {
+	var lastname = A2(_elm_lang$core$String$left, 1, student.secondname);
+	var firstname = function () {
+		var _p5 = _elm_lang$core$List$head(
+			A2(_elm_lang$core$String$split, ' ', student.firstname));
+		if (_p5.ctor === 'Nothing') {
+			return 'No first name';
+		} else {
+			return _p5._0;
+		}
+	}();
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_Table$td,
+		{
+			ctor: '::',
+			_0: _rundis$elm_bootstrap$Bootstrap_Table$cellAttr(
+				A2(_elm_lang$html$Html_Attributes$attribute, 'draggable', 'true')),
+			_1: {
+				ctor: '::',
+				_0: _rundis$elm_bootstrap$Bootstrap_Table$cellAttr(
+					_user$project$Util_DragAndDrop$onDragStart(
+						_user$project$Types$Move(student))),
+				_1: {
+					ctor: '::',
+					_0: _rundis$elm_bootstrap$Bootstrap_Table$cellAttr(
+						A2(_elm_lang$html$Html_Attributes$attribute, 'ondragstart', 'event.dataTransfer.setData(\"text/plain\", \"dummy\")')),
+					_1: {
+						ctor: '::',
+						_0: _rundis$elm_bootstrap$Bootstrap_Table$cellAttr(
+							_user$project$Util_DragAndDrop$onDragEnd(_user$project$Types$CancelMove)),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					firstname,
+					A2(_elm_lang$core$Basics_ops['++'], ' ', lastname))),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Views$groupMarkerTd = function (marker) {
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_Table$td,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(marker),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Views$groupTr = function (group) {
+	var color = function () {
+		var _p6 = group.color;
+		if (_p6.ctor === 'Nothing') {
+			return 'white';
+		} else {
+			return _p6._0;
+		}
+	}();
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_Table$tr,
+		{
+			ctor: '::',
+			_0: _rundis$elm_bootstrap$Bootstrap_Table$rowAttr(
+				A2(_elm_lang$html$Html_Attributes$attribute, 'ondragover', 'return false')),
+			_1: {
+				ctor: '::',
+				_0: _rundis$elm_bootstrap$Bootstrap_Table$rowAttr(
+					_user$project$Util_DragAndDrop$onDrop(
+						_user$project$Types$DropOn(group))),
+				_1: {
+					ctor: '::',
+					_0: _rundis$elm_bootstrap$Bootstrap_Table$rowAttr(
+						_elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'background-color', _1: color},
+								_1: {ctor: '[]'}
+							})),
+					_1: {ctor: '[]'}
+				}
+			}
+		},
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			{
+				ctor: '::',
+				_0: _user$project$Views$groupMarkerTd(
+					_user$project$Util_Util$groupNumberToGroupMarker(group.number)),
+				_1: {ctor: '[]'}
+			},
+			A2(_elm_lang$core$List$map, _user$project$Views$studentTd, group.students)));
+};
+var _user$project$Views$maxtrixTableHeaderView = function (number) {
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_Table$th,
+		{
+			ctor: '::',
+			_0: _rundis$elm_bootstrap$Bootstrap_Table$cellAttr(
+				_elm_lang$html$Html_Attributes$class('text-center')),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(
+				_elm_lang$core$Basics$toString(number)),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Views$matrixGroupView = function (model) {
+	var maybeMaxStudents = _elm_lang$core$List$maximum(
+		A2(
+			_elm_lang$core$List$map,
+			function (gr) {
+				return _elm_lang$core$List$length(gr.students);
+			},
+			model.groups));
+	var maxStudents = function () {
+		var _p7 = maybeMaxStudents;
+		if (_p7.ctor === 'Nothing') {
+			return 0;
+		} else {
+			return _p7._0;
+		}
+	}();
+	var tableheaders = A2(
+		_elm_lang$core$List$map,
+		_user$project$Views$maxtrixTableHeaderView,
+		A2(_elm_lang$core$List$range, 1, maxStudents));
+	var groups = A2(_elm_lang$core$Basics$max, 1, model.numberOfGroups);
+	var numberOfStudents = _elm_lang$core$Basics$ceiling(
+		_elm_lang$core$Basics$toFloat(
+			_elm_lang$core$List$length(model.students)) / _elm_lang$core$Basics$toFloat(groups));
+	var stuff = {ctor: '[]'};
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_Grid$col,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _rundis$elm_bootstrap$Bootstrap_Table$simpleTable(
+				{
+					ctor: '_Tuple2',
+					_0: _rundis$elm_bootstrap$Bootstrap_Table$simpleThead(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							{
+								ctor: '::',
+								_0: A2(
+									_rundis$elm_bootstrap$Bootstrap_Table$th,
+									{ctor: '[]'},
+									{ctor: '[]'}),
+								_1: {ctor: '[]'}
+							},
+							tableheaders)),
+					_1: A2(
+						_rundis$elm_bootstrap$Bootstrap_Table$tbody,
+						{ctor: '[]'},
+						A2(_elm_lang$core$List$map, _user$project$Views$groupTr, model.groups))
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Views$nonmatrixGroupView = function (group) {
+	var color = function () {
+		var _p8 = group.color;
+		if (_p8.ctor === 'Nothing') {
+			return 'white';
+		} else {
+			return _p8._0;
+		}
+	}();
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_Grid$col,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('groupcontainer'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'border', _1: '1px solid black'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'background-color', _1: color},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'margin-bottom', _1: '10px'},
+										_1: {ctor: '[]'}
+									}
+								}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(_elm_lang$html$Html_Attributes$attribute, 'ondragover', 'return false'),
+							_1: {
+								ctor: '::',
+								_0: _user$project$Util_DragAndDrop$onDrop(
+									_user$project$Types$DropOn(group)),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				A2(_elm_lang$core$List$map, _user$project$Views$studentView, group.students)),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Views$fullClassView = function (model) {
+	var _p9 = model.matrix;
+	if (_p9 === false) {
+		return A2(
+			_rundis$elm_bootstrap$Bootstrap_Grid$row,
+			{ctor: '[]'},
+			A2(_elm_lang$core$List$map, _user$project$Views$nonmatrixGroupView, model.groups));
+	} else {
+		return A2(
+			_rundis$elm_bootstrap$Bootstrap_Grid$row,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _user$project$Views$matrixGroupView(model),
+				_1: {ctor: '[]'}
+			});
+	}
+};
+var _user$project$Views$view = function (model) {
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_Grid$container,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$id('maincontainer'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _rundis$elm_bootstrap$Bootstrap_CDN$stylesheet,
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$nav,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('navbar navbar-inverse navbar-fixed-top'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$style(
+								{
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'lightblue'},
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$h1,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('text-center'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Group Utility'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_rundis$elm_bootstrap$Bootstrap_Grid$row,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: A2(
+								_rundis$elm_bootstrap$Bootstrap_Grid$col,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: A2(
+										_rundis$elm_bootstrap$Bootstrap_Form$label,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Select school'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_rundis$elm_bootstrap$Bootstrap_Form_Select$custom,
+											{
+												ctor: '::',
+												_0: _rundis$elm_bootstrap$Bootstrap_Form_Select$onInput(_user$project$Types$SelectSchool),
+												_1: {ctor: '[]'}
+											},
+											A2(_elm_lang$core$List$map, _user$project$Views$schoolSelect, model.schools)),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_rundis$elm_bootstrap$Bootstrap_Form$label,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('Select class'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_rundis$elm_bootstrap$Bootstrap_Form_Select$custom,
+													{
+														ctor: '::',
+														_0: _rundis$elm_bootstrap$Bootstrap_Form_Select$onInput(_user$project$Types$SelectSchoolClass),
+														_1: {ctor: '[]'}
+													},
+													A2(_elm_lang$core$List$map, _user$project$Views$schoolClassSelect, model.schoolClasses)),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_rundis$elm_bootstrap$Bootstrap_Form$label,
+														{ctor: '[]'},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('Number of groups'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_rundis$elm_bootstrap$Bootstrap_Form_Select$custom,
+															{
+																ctor: '::',
+																_0: _rundis$elm_bootstrap$Bootstrap_Form_Select$onInput(
+																	_user$project$Views$customHandler(_user$project$Types$SelectNumberOfGroups)),
+																_1: {ctor: '[]'}
+															},
+															A2(
+																_elm_lang$core$List$map,
+																_user$project$Views$numberSelect,
+																A2(_elm_lang$core$List$range, 1, 10))),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_rundis$elm_bootstrap$Bootstrap_Form$label,
+																{ctor: '[]'},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('Max Students In Group'),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {
+																ctor: '::',
+																_0: A2(
+																	_rundis$elm_bootstrap$Bootstrap_Form_Select$custom,
+																	{
+																		ctor: '::',
+																		_0: _rundis$elm_bootstrap$Bootstrap_Form_Select$onInput(
+																			_user$project$Views$customHandler(_user$project$Types$SelectMaxStudentsInGroup)),
+																		_1: {ctor: '[]'}
+																	},
+																	A2(
+																		_elm_lang$core$List$map,
+																		_user$project$Views$numberSelect,
+																		A2(_elm_lang$core$List$range, 1, 10))),
+																_1: {
+																	ctor: '::',
+																	_0: A2(
+																		_rundis$elm_bootstrap$Bootstrap_Form$label,
+																		{ctor: '[]'},
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html$text('Min Students In Group'),
+																			_1: {ctor: '[]'}
+																		}),
+																	_1: {
+																		ctor: '::',
+																		_0: A2(
+																			_rundis$elm_bootstrap$Bootstrap_Form_Select$custom,
+																			{
+																				ctor: '::',
+																				_0: _rundis$elm_bootstrap$Bootstrap_Form_Select$onInput(
+																					_user$project$Views$customHandler(_user$project$Types$SelectMinStudentsInGroup)),
+																				_1: {ctor: '[]'}
+																			},
+																			A2(
+																				_elm_lang$core$List$map,
+																				_user$project$Views$numberSelect,
+																				A2(_elm_lang$core$List$range, 1, 10))),
+																		_1: {
+																			ctor: '::',
+																			_0: A2(
+																				_elm_lang$html$Html$hr,
+																				{ctor: '[]'},
+																				{ctor: '[]'}),
+																			_1: {
+																				ctor: '::',
+																				_0: A2(
+																					_rundis$elm_bootstrap$Bootstrap_Grid$row,
+																					{ctor: '[]'},
+																					{
+																						ctor: '::',
+																						_0: A2(
+																							_rundis$elm_bootstrap$Bootstrap_Grid$col,
+																							{ctor: '[]'},
+																							{
+																								ctor: '::',
+																								_0: A2(
+																									_rundis$elm_bootstrap$Bootstrap_Form_Checkbox$custom,
+																									{
+																										ctor: '::',
+																										_0: _rundis$elm_bootstrap$Bootstrap_Form_Checkbox$onCheck(_user$project$Types$ToggleMatrix),
+																										_1: {ctor: '[]'}
+																									},
+																									'Toggle matrix'),
+																								_1: {ctor: '[]'}
+																							}),
+																						_1: {
+																							ctor: '::',
+																							_0: A2(
+																								_rundis$elm_bootstrap$Bootstrap_Grid$col,
+																								{ctor: '[]'},
+																								{
+																									ctor: '::',
+																									_0: A2(
+																										_rundis$elm_bootstrap$Bootstrap_Button$button,
+																										{
+																											ctor: '::',
+																											_0: _rundis$elm_bootstrap$Bootstrap_Button$secondary,
+																											_1: {
+																												ctor: '::',
+																												_0: _rundis$elm_bootstrap$Bootstrap_Button$attrs(
+																													{
+																														ctor: '::',
+																														_0: _elm_lang$html$Html_Events$onClick(_user$project$Types$RandomizeGroups),
+																														_1: {ctor: '[]'}
+																													}),
+																												_1: {ctor: '[]'}
+																											}
+																										},
+																										{
+																											ctor: '::',
+																											_0: _elm_lang$html$Html$text('Shuffle groups'),
+																											_1: {ctor: '[]'}
+																										}),
+																									_1: {ctor: '[]'}
+																								}),
+																							_1: {ctor: '[]'}
+																						}
+																					}),
+																				_1: {
+																					ctor: '::',
+																					_0: A2(
+																						_elm_lang$html$Html$hr,
+																						{ctor: '[]'},
+																						{ctor: '[]'}),
+																					_1: {
+																						ctor: '::',
+																						_0: _user$project$Views$fullClassView(model),
+																						_1: {ctor: '[]'}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_rundis$elm_bootstrap$Bootstrap_Grid$col,
+									{
+										ctor: '::',
+										_0: _rundis$elm_bootstrap$Bootstrap_Grid_Col$sm3,
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: A2(
+											_rundis$elm_bootstrap$Bootstrap_Form$label,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('Students'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {
+											ctor: '::',
+											_0: _user$project$Views$studentList(model.students),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_rundis$elm_bootstrap$Bootstrap_Form$label,
+													{ctor: '[]'},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Removed Students'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {
+													ctor: '::',
+													_0: _user$project$Views$studentListRemoved(model.removedStudents),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _user$project$Views$schoolClassOptions = function (schoolClass) {
+	return A2(
+		_elm_lang$html$Html$option,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$value(schoolClass.name),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(schoolClass.name),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Views$schoolOptions = function (school) {
+	return A2(
+		_elm_lang$html$Html$option,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$value(school.name),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(school.name),
+			_1: {ctor: '[]'}
+		});
+};

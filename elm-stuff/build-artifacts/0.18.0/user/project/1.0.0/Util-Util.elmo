@@ -1,0 +1,126 @@
+var _user$project$Util_Util$groupNumberToGroupMarker = function (number) {
+	var chars = {
+		ctor: '::',
+		_0: 'A',
+		_1: {
+			ctor: '::',
+			_0: 'B',
+			_1: {
+				ctor: '::',
+				_0: 'C',
+				_1: {
+					ctor: '::',
+					_0: 'D',
+					_1: {
+						ctor: '::',
+						_0: 'E',
+						_1: {
+							ctor: '::',
+							_0: 'F',
+							_1: {
+								ctor: '::',
+								_0: 'G',
+								_1: {
+									ctor: '::',
+									_0: 'H',
+									_1: {
+										ctor: '::',
+										_0: 'I',
+										_1: {
+											ctor: '::',
+											_0: 'J',
+											_1: {
+												ctor: '::',
+												_0: 'K',
+												_1: {
+													ctor: '::',
+													_0: 'L',
+													_1: {
+														ctor: '::',
+														_0: 'M',
+														_1: {
+															ctor: '::',
+															_0: 'N',
+															_1: {
+																ctor: '::',
+																_0: 'O',
+																_1: {
+																	ctor: '::',
+																	_0: 'P',
+																	_1: {
+																		ctor: '::',
+																		_0: 'Q',
+																		_1: {
+																			ctor: '::',
+																			_0: 'R',
+																			_1: {
+																				ctor: '::',
+																				_0: 'S',
+																				_1: {
+																					ctor: '::',
+																					_0: 'T',
+																					_1: {
+																						ctor: '::',
+																						_0: 'U',
+																						_1: {ctor: '[]'}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	};
+	var assignedChar = A2(
+		_elm_lang$core$Array$get,
+		number - 1,
+		_elm_lang$core$Array$fromList(chars));
+	var actualChar = function () {
+		var _p0 = assignedChar;
+		if (_p0.ctor === 'Nothing') {
+			return '';
+		} else {
+			return _p0._0;
+		}
+	}();
+	return actualChar;
+};
+var _user$project$Util_Util$divideStudentsFixedAmountOfGroups = F4(
+	function (colors, index, numberOfGroups, students) {
+		var color = A2(
+			_elm_lang$core$Array$get,
+			index,
+			_elm_lang$core$Array$fromList(colors));
+		var groups = A2(_elm_lang$core$Basics$max, 1, numberOfGroups);
+		var numberOfStudents = _elm_lang$core$Basics$ceiling(
+			_elm_lang$core$Basics$toFloat(
+				_elm_lang$core$List$length(students)) / groups);
+		var _p1 = A2(_elm_lang$core$List$take, numberOfStudents, students);
+		if (_p1.ctor === '[]') {
+			return {ctor: '[]'};
+		} else {
+			return {
+				ctor: '::',
+				_0: A3(_user$project$Types$Group, _p1, index, color),
+				_1: A4(
+					_user$project$Util_Util$divideStudentsFixedAmountOfGroups,
+					colors,
+					index + 1,
+					groups - 1,
+					A2(_elm_lang$core$List$drop, numberOfStudents, students))
+			};
+		}
+	});

@@ -1,0 +1,68 @@
+var _user$project$Rest$schoolDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'schoolId',
+	_elm_lang$core$Json_Decode$string,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'name',
+		_elm_lang$core$Json_Decode$string,
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Types$School)));
+var _user$project$Rest$decodeSchools = _elm_lang$core$Json_Decode$list(_user$project$Rest$schoolDecoder);
+var _user$project$Rest$schoolClassDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'schoolId',
+	_elm_lang$core$Json_Decode$string,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'classId',
+		_elm_lang$core$Json_Decode$string,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'name',
+			_elm_lang$core$Json_Decode$string,
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Types$SchoolClass))));
+var _user$project$Rest$decodeClasses = _elm_lang$core$Json_Decode$list(_user$project$Rest$schoolClassDecoder);
+var _user$project$Rest$studentDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'secondName',
+	_elm_lang$core$Json_Decode$string,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'firstName',
+		_elm_lang$core$Json_Decode$string,
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Types$Student)));
+var _user$project$Rest$decodeStudents = _elm_lang$core$Json_Decode$list(_user$project$Rest$studentDecoder);
+var _user$project$Rest$urlbase = 'http://46.101.185.34:8084';
+var _user$project$Rest$getClasses = function (school) {
+	var url = A2(
+		_elm_lang$core$Basics_ops['++'],
+		_user$project$Rest$urlbase,
+		A2(_elm_lang$core$Basics_ops['++'], '/ajax/classes?schoolId=', school.id));
+	return A2(
+		_elm_lang$http$Http$send,
+		_user$project$Types$NewClasses,
+		A2(_elm_lang$http$Http$get, url, _user$project$Rest$decodeClasses));
+};
+var _user$project$Rest$getSchools = function () {
+	var url = A2(_elm_lang$core$Basics_ops['++'], _user$project$Rest$urlbase, '/ajax/schools');
+	return A2(
+		_elm_lang$http$Http$send,
+		_user$project$Types$NewSchools,
+		A2(_elm_lang$http$Http$get, url, _user$project$Rest$decodeSchools));
+}();
+var _user$project$Rest$getStudents = function (schoolClass) {
+	var url = A2(
+		_elm_lang$core$Basics_ops['++'],
+		_user$project$Rest$urlbase,
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			'/ajax/students?classId=',
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				schoolClass.id,
+				A2(_elm_lang$core$Basics_ops['++'], '&schoolId=', schoolClass.schoolId))));
+	return A2(
+		_elm_lang$http$Http$send,
+		_user$project$Types$NewStudents,
+		A2(_elm_lang$http$Http$get, url, _user$project$Rest$decodeStudents));
+};
