@@ -6,6 +6,8 @@ module Types exposing (..)
 
 import Http
 import Bootstrap.Modal as Modal
+import Random exposing (Seed)
+
 
 {-| Some comment -}
 type alias SchoolClass =
@@ -38,6 +40,8 @@ type alias Model =
     , debug: String
     , matrix: Bool
     , exportVisible: Modal.State
+    , randomStudentVisible: Modal.State
+    , randomStudent: Maybe(Student)
     , showTableHeaderModal: Bool
     , showColors: Bool
     , groups: List(Group)
@@ -78,3 +82,5 @@ type Msg
   | ToggleTableHeader(Bool)
   | ToggleColors(Bool)
   | SwapStudents(Student)
+  | PickRandomStudent(Modal.State)
+  | SetRandomStudent(Maybe(Student), List(Student))

@@ -29,7 +29,11 @@ var _user$project$Types$Model = function (a) {
 												return function (m) {
 													return function (n) {
 														return function (o) {
-															return {movingStudent: a, numberOfGroups: b, selectedSchool: c, selectedSchoolClass: d, debug: e, matrix: f, exportVisible: g, showTableHeaderModal: h, showColors: i, groups: j, students: k, removedStudents: l, schoolClasses: m, schools: n, colors: o};
+															return function (p) {
+																return function (q) {
+																	return {movingStudent: a, numberOfGroups: b, selectedSchool: c, selectedSchoolClass: d, debug: e, matrix: f, exportVisible: g, randomStudentVisible: h, randomStudent: i, showTableHeaderModal: j, showColors: k, groups: l, students: m, removedStudents: n, schoolClasses: o, schools: p, colors: q};
+																};
+															};
 														};
 													};
 												};
@@ -48,6 +52,12 @@ var _user$project$Types$Model = function (a) {
 var _user$project$Types$Neither = {ctor: 'Neither'};
 var _user$project$Types$Second = {ctor: 'Second'};
 var _user$project$Types$First = {ctor: 'First'};
+var _user$project$Types$SetRandomStudent = function (a) {
+	return {ctor: 'SetRandomStudent', _0: a};
+};
+var _user$project$Types$PickRandomStudent = function (a) {
+	return {ctor: 'PickRandomStudent', _0: a};
+};
 var _user$project$Types$SwapStudents = function (a) {
 	return {ctor: 'SwapStudents', _0: a};
 };

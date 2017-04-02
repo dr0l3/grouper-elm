@@ -353,6 +353,26 @@ var _user$project$State$update = F2(
 						{exportVisible: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			case 'PickRandomStudent':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{randomStudentVisible: _p0._0}),
+					_1: A2(
+						_elm_lang$core$Random$generate,
+						_user$project$Types$SetRandomStudent,
+						_elm_community$random_extra$Random_List$choose(model.students))
+				};
+			case 'SetRandomStudent':
+				var maybeStudent = _elm_lang$core$Tuple$first(_p0._0);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{randomStudent: maybeStudent}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 			case 'ToggleTableHeader':
 				return {
 					ctor: '_Tuple2',
@@ -414,7 +434,7 @@ var _user$project$State$update = F2(
 	});
 var _user$project$State$init = {
 	ctor: '_Tuple2',
-	_0: _user$project$Types$Model(_elm_lang$core$Maybe$Nothing)(1)(_elm_lang$core$Maybe$Nothing)(_elm_lang$core$Maybe$Nothing)('')(false)(_rundis$elm_bootstrap$Bootstrap_Modal$hiddenState)(true)(true)(
+	_0: _user$project$Types$Model(_elm_lang$core$Maybe$Nothing)(1)(_elm_lang$core$Maybe$Nothing)(_elm_lang$core$Maybe$Nothing)('')(false)(_rundis$elm_bootstrap$Bootstrap_Modal$hiddenState)(_rundis$elm_bootstrap$Bootstrap_Modal$hiddenState)(_elm_lang$core$Maybe$Nothing)(true)(true)(
 		{ctor: '[]'})(
 		{ctor: '[]'})(
 		{ctor: '[]'})(

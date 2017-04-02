@@ -1,12 +1,113 @@
+var _user$project$Views$showStudentModal = function (model) {
+	var student = function () {
+		var _p0 = model.randomStudent;
+		if (_p0.ctor === 'Nothing') {
+			return A2(_user$project$Types$Student, 'No student found', '');
+		} else {
+			return _p0._0;
+		}
+	}();
+	var firstname = function () {
+		var _p1 = _elm_lang$core$List$head(
+			A2(_elm_lang$core$String$split, ' ', student.firstname));
+		if (_p1.ctor === 'Nothing') {
+			return 'No first name';
+		} else {
+			return _p1._0;
+		}
+	}();
+	var lastname = A2(_elm_lang$core$String$left, 1, student.secondname);
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_Modal$view,
+		model.randomStudentVisible,
+		A3(
+			_rundis$elm_bootstrap$Bootstrap_Modal$footer,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_rundis$elm_bootstrap$Bootstrap_Button$button,
+					{
+						ctor: '::',
+						_0: _rundis$elm_bootstrap$Bootstrap_Button$attrs(
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(
+									_user$project$Types$PickRandomStudent(_rundis$elm_bootstrap$Bootstrap_Modal$hiddenState)),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('close'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_rundis$elm_bootstrap$Bootstrap_Button$button,
+						{
+							ctor: '::',
+							_0: _rundis$elm_bootstrap$Bootstrap_Button$secondary,
+							_1: {
+								ctor: '::',
+								_0: _rundis$elm_bootstrap$Bootstrap_Button$attrs(
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Events$onClick(
+											_user$project$Types$PickRandomStudent(_rundis$elm_bootstrap$Bootstrap_Modal$visibleState)),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Another one'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			},
+			A3(
+				_rundis$elm_bootstrap$Bootstrap_Modal$body,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'And the winner is: ',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								firstname,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									' ',
+									A2(_elm_lang$core$Basics_ops['++'], lastname, '.'))))),
+					_1: {ctor: '[]'}
+				},
+				A3(
+					_rundis$elm_bootstrap$Bootstrap_Modal$h3,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Random student'),
+						_1: {ctor: '[]'}
+					},
+					_rundis$elm_bootstrap$Bootstrap_Modal$small(
+						_rundis$elm_bootstrap$Bootstrap_Modal$config(_user$project$Types$PickRandomStudent))))));
+};
 var _user$project$Views$studentListItemRemoved = function (student) {
 	var lastname = A2(_elm_lang$core$String$left, 1, student.secondname);
 	var firstname = function () {
-		var _p0 = _elm_lang$core$List$head(
+		var _p2 = _elm_lang$core$List$head(
 			A2(_elm_lang$core$String$split, ' ', student.firstname));
-		if (_p0.ctor === 'Nothing') {
+		if (_p2.ctor === 'Nothing') {
 			return 'No first name';
 		} else {
-			return _p0._0;
+			return _p2._0;
 		}
 	}();
 	return A2(
@@ -67,12 +168,12 @@ var _user$project$Views$studentListRemoved = function (students) {
 var _user$project$Views$studentListItem = function (student) {
 	var lastname = A2(_elm_lang$core$String$left, 1, student.secondname);
 	var firstname = function () {
-		var _p1 = _elm_lang$core$List$head(
+		var _p3 = _elm_lang$core$List$head(
 			A2(_elm_lang$core$String$split, ' ', student.firstname));
-		if (_p1.ctor === 'Nothing') {
+		if (_p3.ctor === 'Nothing') {
 			return 'No first name';
 		} else {
-			return _p1._0;
+			return _p3._0;
 		}
 	}();
 	return A2(
@@ -163,22 +264,22 @@ var _user$project$Views$numberSelect = function (number) {
 };
 var _user$project$Views$customHandler = F2(
 	function (message, input) {
-		var _p2 = _elm_lang$core$String$toInt(input);
-		if (_p2.ctor === 'Err') {
-			return _user$project$Types$DebugMessage(_p2._0);
+		var _p4 = _elm_lang$core$String$toInt(input);
+		if (_p4.ctor === 'Err') {
+			return _user$project$Types$DebugMessage(_p4._0);
 		} else {
-			return message(_p2._0);
+			return message(_p4._0);
 		}
 	});
 var _user$project$Views$matrixStudentView = function (student) {
 	var lastname = A2(_elm_lang$core$String$left, 1, student.secondname);
 	var firstname = function () {
-		var _p3 = _elm_lang$core$List$head(
+		var _p5 = _elm_lang$core$List$head(
 			A2(_elm_lang$core$String$split, ' ', student.firstname));
-		if (_p3.ctor === 'Nothing') {
+		if (_p5.ctor === 'Nothing') {
 			return 'No first name';
 		} else {
-			return _p3._0;
+			return _p5._0;
 		}
 	}();
 	return A2(
@@ -207,12 +308,12 @@ var _user$project$Views$studentTd = F2(
 	function (dnd, student) {
 		var lastname = A2(_elm_lang$core$String$left, 1, student.secondname);
 		var firstname = function () {
-			var _p4 = _elm_lang$core$List$head(
+			var _p6 = _elm_lang$core$List$head(
 				A2(_elm_lang$core$String$split, ' ', student.firstname));
-			if (_p4.ctor === 'Nothing') {
+			if (_p6.ctor === 'Nothing') {
 				return 'No first name';
 			} else {
-				return _p4._0;
+				return _p6._0;
 			}
 		}();
 		var dndattrs = {
@@ -243,10 +344,15 @@ var _user$project$Views$studentTd = F2(
 				}
 			}
 		};
-		var nondndattrs = {ctor: '[]'};
+		var nondndattrs = {
+			ctor: '::',
+			_0: _rundis$elm_bootstrap$Bootstrap_Table$cellAttr(
+				_elm_lang$html$Html_Attributes$class('text-center')),
+			_1: {ctor: '[]'}
+		};
 		var cellattrs = function () {
-			var _p5 = dnd;
-			if (_p5 === false) {
+			var _p7 = dnd;
+			if (_p7 === false) {
 				return nondndattrs;
 			} else {
 				return A2(_elm_lang$core$Basics_ops['++'], nondndattrs, dndattrs);
@@ -278,11 +384,11 @@ var _user$project$Views$groupMarkerTd = function (marker) {
 var _user$project$Views$groupTr = F2(
 	function (dnd, group) {
 		var color = function () {
-			var _p6 = group.color;
-			if (_p6.ctor === 'Nothing') {
+			var _p8 = group.color;
+			if (_p8.ctor === 'Nothing') {
 				return 'white';
 			} else {
-				return _p6._0;
+				return _p8._0;
 			}
 		}();
 		var dndattrs = {
@@ -309,8 +415,8 @@ var _user$project$Views$groupTr = F2(
 			_1: {ctor: '[]'}
 		};
 		var rowattrs = function () {
-			var _p7 = dnd;
-			if (_p7 === false) {
+			var _p9 = dnd;
+			if (_p9 === false) {
 				return nondndattrs;
 			} else {
 				return A2(_elm_lang$core$Basics_ops['++'], nondndattrs, dndattrs);
@@ -362,16 +468,16 @@ var _user$project$Views$matrixGroupView = F2(
 				},
 				model.groups));
 		var maxStudents = function () {
-			var _p8 = maybeMaxStudents;
-			if (_p8.ctor === 'Nothing') {
+			var _p10 = maybeMaxStudents;
+			if (_p10.ctor === 'Nothing') {
 				return 0;
 			} else {
-				return _p8._0;
+				return _p10._0;
 			}
 		}();
 		var tableheaders = function () {
-			var _p9 = model.showTableHeaderModal;
-			if (_p9 === false) {
+			var _p11 = model.showTableHeaderModal;
+			if (_p11 === false) {
 				return {ctor: '[]'};
 			} else {
 				return A2(
@@ -423,12 +529,12 @@ var _user$project$Views$studentView = F2(
 	function (dnd, student) {
 		var lastname = A2(_elm_lang$core$String$left, 1, student.secondname);
 		var firstname = function () {
-			var _p10 = _elm_lang$core$List$head(
+			var _p12 = _elm_lang$core$List$head(
 				A2(_elm_lang$core$String$split, ' ', student.firstname));
-			if (_p10.ctor === 'Nothing') {
+			if (_p12.ctor === 'Nothing') {
 				return 'No first name';
 			} else {
-				return _p10._0;
+				return _p12._0;
 			}
 		}();
 		var dndattrs = {
@@ -460,8 +566,8 @@ var _user$project$Views$studentView = F2(
 			_1: {ctor: '[]'}
 		};
 		var divattrs = function () {
-			var _p11 = dnd;
-			if (_p11 === false) {
+			var _p13 = dnd;
+			if (_p13 === false) {
 				return nondndattrs;
 			} else {
 				return A2(_elm_lang$core$Basics_ops['++'], nondndattrs, dndattrs);
@@ -511,8 +617,8 @@ var _user$project$Views$nonMatrixGroupTitle = F2(
 			}
 		};
 		var divattrs = function () {
-			var _p12 = dnd;
-			if (_p12 === false) {
+			var _p14 = dnd;
+			if (_p14 === false) {
 				return nondndattrs;
 			} else {
 				return A2(_elm_lang$core$Basics_ops['++'], nondndattrs, dndattrs);
@@ -534,11 +640,11 @@ var _user$project$Views$nonMatrixGroupTitle = F2(
 var _user$project$Views$nonmatrixGroupView = F2(
 	function (dnd, group) {
 		var color = function () {
-			var _p13 = group.color;
-			if (_p13.ctor === 'Nothing') {
+			var _p15 = group.color;
+			if (_p15.ctor === 'Nothing') {
 				return 'white';
 			} else {
-				return _p13._0;
+				return _p15._0;
 			}
 		}();
 		var dndattrs = {
@@ -574,8 +680,8 @@ var _user$project$Views$nonmatrixGroupView = F2(
 			_1: {ctor: '[]'}
 		};
 		var divattrs = function () {
-			var _p14 = dnd;
-			if (_p14 === false) {
+			var _p16 = dnd;
+			if (_p16 === false) {
 				return nondndattrs;
 			} else {
 				return A2(_elm_lang$core$Basics_ops['++'], nondndattrs, dndattrs);
@@ -609,8 +715,8 @@ var _user$project$Views$nonmatrixGroupView = F2(
 	});
 var _user$project$Views$fullClassView = F2(
 	function (dnd, model) {
-		var _p15 = model.matrix;
-		if (_p15 === false) {
+		var _p17 = model.matrix;
+		if (_p17 === false) {
 			return A2(
 				_rundis$elm_bootstrap$Bootstrap_Grid$row,
 				{ctor: '[]'},
@@ -670,7 +776,11 @@ var _user$project$Views$exportModal = function (model) {
 							_1: {
 								ctor: '::',
 								_0: _rundis$elm_bootstrap$Bootstrap_Form_Checkbox$disabled(!model.matrix),
-								_1: {ctor: '[]'}
+								_1: {
+									ctor: '::',
+									_0: _rundis$elm_bootstrap$Bootstrap_Form_Checkbox$checked(model.showTableHeaderModal),
+									_1: {ctor: '[]'}
+								}
 							}
 						},
 						'Toggle Table header'),
@@ -963,7 +1073,39 @@ var _user$project$Views$view = function (model) {
 																											}),
 																										_1: {ctor: '[]'}
 																									}),
-																								_1: {ctor: '[]'}
+																								_1: {
+																									ctor: '::',
+																									_0: A2(
+																										_rundis$elm_bootstrap$Bootstrap_Grid$col,
+																										{ctor: '[]'},
+																										{
+																											ctor: '::',
+																											_0: A2(
+																												_rundis$elm_bootstrap$Bootstrap_Button$button,
+																												{
+																													ctor: '::',
+																													_0: _rundis$elm_bootstrap$Bootstrap_Button$secondary,
+																													_1: {
+																														ctor: '::',
+																														_0: _rundis$elm_bootstrap$Bootstrap_Button$attrs(
+																															{
+																																ctor: '::',
+																																_0: _elm_lang$html$Html_Events$onClick(
+																																	_user$project$Types$PickRandomStudent(_rundis$elm_bootstrap$Bootstrap_Modal$visibleState)),
+																																_1: {ctor: '[]'}
+																															}),
+																														_1: {ctor: '[]'}
+																													}
+																												},
+																												{
+																													ctor: '::',
+																													_0: _elm_lang$html$Html$text('Pick Random Student'),
+																													_1: {ctor: '[]'}
+																												}),
+																											_1: {ctor: '[]'}
+																										}),
+																									_1: {ctor: '[]'}
+																								}
 																							}
 																						}
 																					}),
@@ -985,7 +1127,11 @@ var _user$project$Views$view = function (model) {
 																							_1: {
 																								ctor: '::',
 																								_0: _user$project$Views$exportModal(model),
-																								_1: {ctor: '[]'}
+																								_1: {
+																									ctor: '::',
+																									_0: _user$project$Views$showStudentModal(model),
+																									_1: {ctor: '[]'}
+																								}
 																							}
 																						}
 																					}

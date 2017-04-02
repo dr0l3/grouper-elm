@@ -10,12 +10,14 @@ import Types exposing (..)
 import Rest exposing (..)
 import Util.Util exposing (..)
 import Bootstrap.Modal as Modal
+import Random.Extra
+
 
 
 {-| The init function -}
 init : (Model, Cmd Msg)
 init =
-      ( Model Nothing 1 Nothing Nothing "" False Modal.hiddenState True True [] [] [] [] []
+      ( Model Nothing 1 Nothing Nothing "" False Modal.hiddenState Modal.hiddenState Nothing True True [] [] [] [] []
       ["#f98a02", "#2980b9", "#a2d5f2", "#127228", "#aea1ea", "#ffce3e", "#e22222", "#29c6cd", "#76f168", "#824a78", "#776d54"]
       , getSchools
       )
@@ -147,11 +149,21 @@ update msg model =
     Export showModal ->
         ({model | exportVisible = showModal}, Cmd.none)
 
+    PickRandomStudent showModal ->
+        ({model | randomStudentVisible = showModal}, Random.generate SetRandomStudent (Random.List.choose model.students))
+
+    SetRandomStudent tuple ->
+        let
+            maybeStudent = Tuple.first tuple
+        in
+            ({model | randomStudent = maybeStudent}, Cmd.none)
+
     ToggleTableHeader showHeader ->
         ({model | showTableHeaderModal = showHeader}, Cmd.none)
 
     ToggleColors showColor ->
         ({model | showColors = showColor}, Cmd.none)
+
 
     SwapStudents student ->
         let

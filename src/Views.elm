@@ -130,7 +130,7 @@ groupMarkerTd marker =
 studentTd: Bool ->Student -> Table.Cell Msg
 studentTd dnd student =
     let
-        nondndattrs = []
+        nondndattrs = [cellAttr (class "text-center")]
         dndattrs = [ cellAttr (attribute "draggable" "true")
                    , cellAttr (onDragStart <| Move student)
                    , cellAttr (attribute "ondragstart" "event.dataTransfer.setData(\"text/plain\", \"dummy\")")
@@ -218,9 +218,29 @@ exportModal model =
             [ fullClassView False model ]
         |> Modal.footer []
             [ Button.button [Button.attrs [onClick (Export Modal.hiddenState)]] [text "close"]
-            , Checkbox.custom [Checkbox.onCheck ToggleTableHeader, Checkbox.disabled (not model.matrix)] "Toggle Table header"
+            , Checkbox.custom [Checkbox.onCheck ToggleTableHeader, Checkbox.disabled (not model.matrix), Checkbox.checked model.showTableHeaderModal] "Toggle Table header"
             , Checkbox.custom [Checkbox.onCheck ToggleMatrix] "Toggle Matrix"]
         |> Modal.view model.exportVisible
+
+showStudentModal: Model -> Html.Html Msg
+showStudentModal model =
+    let
+        student = case model.randomStudent of
+            Nothing -> Student "No student found" ""
+            Just val -> val
+        firstname = case List.head(String.split " " student.firstname) of
+                                    Nothing -> "No first name"
+                                    Just name -> name
+        lastname = String.left 1 student.secondname
+    in
+        Modal.config PickRandomStudent
+            |> Modal.small
+            |> Modal.h3 [] [text "Random student"]
+            |> Modal.body []
+                [ text ("And the winner is: " ++  firstname ++ " " ++ lastname ++ ".")]
+            |> Modal.footer [] [ Button.button [Button.attrs [onClick (PickRandomStudent Modal.hiddenState)]] [text "close"]
+                               , Button.button [Button.secondary, Button.attrs [ onClick (PickRandomStudent Modal.visibleState)]] [text "Another one"]]
+            |> Modal.view model.randomStudentVisible
 
 {-| The view function -}
 
@@ -248,11 +268,14 @@ view model =
                 , Grid.col []
                     [ Button.button [Button.secondary, Button.attrs [ onClick RandomizeGroups]] [text "Shuffle groups"]]
                 , Grid.col []
-                    [ Button.button [Button.secondary, Button.attrs [ onClick (Export Modal.visibleState)]] [text "Export"]]]
+                    [ Button.button [Button.secondary, Button.attrs [ onClick (Export Modal.visibleState)]] [text "Export"]]
+                , Grid.col []
+                    [ Button.button [Button.secondary, Button.attrs [ onClick (PickRandomStudent Modal.visibleState)]] [text "Pick Random Student"]]]
             , hr [] []
             , fullClassView True model
             , hr [] []
-            , exportModal model]
+            , exportModal model
+            , showStudentModal model]
         , Grid.col [Bootstrap.Grid.Col.sm3]
             [ Form.label [] [text "Students"]
             , studentList model.students
