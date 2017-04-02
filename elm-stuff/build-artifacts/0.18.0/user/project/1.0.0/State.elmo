@@ -337,7 +337,7 @@ var _user$project$State$update = F2(
 						{movingStudent: _elm_lang$core$Maybe$Nothing, groups: addedGroup}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
-			default:
+			case 'CancelMove':
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -345,11 +345,27 @@ var _user$project$State$update = F2(
 						{movingStudent: _elm_lang$core$Maybe$Nothing}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			case 'Export':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{exportVisible: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{showTableHeaderModal: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 		}
 	});
 var _user$project$State$init = {
 	ctor: '_Tuple2',
-	_0: _user$project$Types$Model(_elm_lang$core$Maybe$Nothing)(1)(_elm_lang$core$Maybe$Nothing)(_elm_lang$core$Maybe$Nothing)('')(false)(
+	_0: _user$project$Types$Model(_elm_lang$core$Maybe$Nothing)(1)(_elm_lang$core$Maybe$Nothing)(_elm_lang$core$Maybe$Nothing)('')(false)(_rundis$elm_bootstrap$Bootstrap_Modal$hiddenState)(true)(
 		{ctor: '[]'})(
 		{ctor: '[]'})(
 		{ctor: '[]'})(

@@ -19,6 +19,7 @@ import Bootstrap.Form.Checkbox as Checkbox
 import Bootstrap.Grid.Row as Row
 import Bootstrap.ListGroup as ListGroup
 import Bootstrap.Table as Table exposing (RowOption, cellAttr, rowAttr)
+import Bootstrap.Modal as Modal
 import Html.Attributes exposing (attribute, class, id, required, style, type_, value)
 import Html.Events exposing (on, onClick, onWithOptions, targetValue)
 
@@ -31,72 +32,106 @@ schoolClassOptions schoolClass =
     option [value (schoolClass.name)] [ text (schoolClass.name)]
 
 
-fullClassView: Model -> Html Msg
-fullClassView model =
+fullClassView: Bool -> Model -> Html Msg
+fullClassView dnd model =
     case model.matrix of
-        False -> Grid.row [] (List.map nonmatrixGroupView model.groups)
-        True -> Grid.row [] [matrixGroupView model]
+        False -> Grid.row [] (List.map2 nonmatrixGroupView (List.repeat (List.length model.groups) dnd) model.groups)
+        True -> Grid.row [] [matrixGroupView dnd model]
 
-nonmatrixGroupView: Group -> Grid.Column Msg
-nonmatrixGroupView group =
+
+
+nonmatrixGroupView: Bool -> Group -> Grid.Column Msg
+nonmatrixGroupView dnd group =
     let
+        nondndattrs = [style [("border", "1px solid black"),("background-color", color), ("margin-bottom", "10px")]]
+        dndattrs = [attribute "ondragover" "return false", onDrop <| DropOn group]
+        divattrs = case dnd of
+            False -> nondndattrs
+            True -> nondndattrs ++ dndattrs
         color =  case group.color of
             Nothing -> "white"
             Just val -> val
     in
         Grid.col []
-            [ div   [ class "groupcontainer"
-                    , style [("border", "1px solid black"),("background-color", color), ("margin-bottom", "10px")]
-                    , attribute "ondragover" "return false"
-                    , onDrop <| DropOn group] (List.map studentView group.students)]
+            [ div divattrs (List.map2 studentView (List.repeat (List.length group.students) dnd)  group.students)]
 
-matrixGroupView: Model -> Grid.Column Msg
-matrixGroupView model =
+studentView: Bool -> Student -> Html Msg
+studentView dnd student =
     let
-        stuff = []
+        nondndattrs = [ class "text-center", style [("min-width", "120px")]]
+        dndattrs = [ attribute "draggable" "true"
+                   , onDragEnd <| CancelMove
+                   , onDragStart <| Move student
+                   , attribute "ondragstart" "event.dataTransfer.setData(\"text/plain\", \"dummy\")"]
+        divattrs = case dnd of
+            False -> nondndattrs
+            True -> nondndattrs ++ dndattrs
+        firstname = case List.head(String.split " " student.firstname) of
+            Nothing -> "No first name"
+            Just name -> name
+        lastname = String.left 1 student.secondname
+    in
+        div divattrs [ text (firstname ++ " " ++ lastname)]
+
+
+matrixGroupView: Bool -> Model -> Grid.Column Msg
+matrixGroupView dnd model =
+    let
         groups = max 1 model.numberOfGroups -- numberOfGroups might be zero
         maybeMaxStudents = List.maximum (List.map (\gr -> (List.length gr.students)) model.groups)
         maxStudents = case maybeMaxStudents of
             Nothing -> 0
             Just val -> val
         numberOfStudents = ceiling ((toFloat (List.length model.students))  / (toFloat groups))
-        tableheaders = List.map maxtrixTableHeaderView (List.range 1 maxStudents)
+        tableheaders = case model.showTableHeaderModal of
+            False -> []
+            True -> List.map maxtrixTableHeaderView (List.range 1 maxStudents)
     in
         Grid.col [] [
-            Table.simpleTable (Table.simpleThead ([Table.th [] []] ++ tableheaders), Table.tbody [] (List.map groupTr model.groups))]
+            Table.simpleTable
+                (Table.simpleThead ( [Table.th [] []] ++ tableheaders)
+                                   , Table.tbody [] (List.map2 groupTr (List.repeat (List.length model.groups) dnd) model.groups))]
 
 maxtrixTableHeaderView: Int -> Table.Cell Msg
 maxtrixTableHeaderView number =
     Table.th [cellAttr (class "text-center")] [text (toString number)]
 
-groupTr: Group -> Table.Row Msg
-groupTr group =
+groupTr: Bool -> Group -> Table.Row Msg
+groupTr dnd group =
     let
+        nondndattrs = [ (rowAttr (style [("background-color", color)]))]
+        dndattrs = [ rowAttr (attribute "ondragover" "return false"), rowAttr (onDrop <| DropOn group)]
+        rowattrs = case dnd of
+            False -> nondndattrs
+            True -> nondndattrs ++ dndattrs
         color =  case group.color of
             Nothing -> "white"
             Just val -> val
     in
-        Table.tr [ rowAttr (attribute "ondragover" "return false")
-                 , rowAttr (onDrop <| DropOn group)
-                 , (rowAttr (style [("background-color", color)]))] ([groupMarkerTd (groupNumberToGroupMarker group.number)] ++ (List.map studentTd group.students))
+        Table.tr rowattrs ([groupMarkerTd (groupNumberToGroupMarker group.number)] ++ (List.map2 studentTd (List.repeat (List.length group.students) dnd) group.students))
 
 
 groupMarkerTd: String -> Table.Cell Msg
 groupMarkerTd marker =
     Table.td [] [text marker]
 
-studentTd: Student -> Table.Cell Msg
-studentTd student =
+studentTd: Bool ->Student -> Table.Cell Msg
+studentTd dnd student =
     let
-            firstname = case List.head(String.split " " student.firstname) of
-                            Nothing -> "No first name"
-                            Just name -> name
-            lastname = String.left 1 student.secondname
+        nondndattrs = []
+        dndattrs = [ cellAttr (attribute "draggable" "true")
+                   , cellAttr (onDragStart <| Move student)
+                   , cellAttr (attribute "ondragstart" "event.dataTransfer.setData(\"text/plain\", \"dummy\")")
+                   , cellAttr (onDragEnd <| CancelMove)]
+        cellattrs = case dnd of
+            False -> nondndattrs
+            True -> nondndattrs ++ dndattrs
+        firstname = case List.head(String.split " " student.firstname) of
+                        Nothing -> "No first name"
+                        Just name -> name
+        lastname = String.left 1 student.secondname
     in
-            Table.td [ cellAttr (attribute "draggable" "true")
-                     , cellAttr (onDragStart <| Move student)
-                     , cellAttr (attribute "ondragstart" "event.dataTransfer.setData(\"text/plain\", \"dummy\")")
-                     , cellAttr (onDragEnd <| CancelMove)] [ text (firstname ++ " " ++ lastname)]
+        Table.td cellattrs [ text (firstname ++ " " ++ lastname)]
 
 matrixStudentView: Student -> Grid.Column Msg
 matrixStudentView student =
@@ -107,21 +142,6 @@ matrixStudentView student =
         lastname = String.left 1 student.secondname
     in
         Grid.col [ Bootstrap.Grid.Col.attrs [class "text-center"]] [ text (firstname ++ " " ++ lastname)]
-
-studentView: Student -> Html Msg
-studentView student =
-    let
-        firstname = case List.head(String.split " " student.firstname) of
-            Nothing -> "No first name"
-            Just name -> name
-        lastname = String.left 1 student.secondname
-    in
-        div [ class "text-center"
-            , attribute "draggable" "true"
-            , onDragEnd <| CancelMove
-            , onDragStart <| Move student
-            , attribute "ondragstart" "event.dataTransfer.setData(\"text/plain\", \"dummy\")"
-            , style [("min-width", "120px")]] [ text (firstname ++ " " ++ lastname)]
 
 
 customHandler: (Int -> Msg) -> String -> Msg
@@ -176,6 +196,18 @@ studentListItemRemoved student =
             , Button.button [Button.small, Button.attrs [(onClick (AddStudent student)), class "float-right"]] [text "+"]]
 
 
+exportModal: Model -> Html.Html Msg
+exportModal model =
+    Modal.config Export
+        |> Modal.large
+        |> Modal.h3 [] [ text "Group export"]
+        |> Modal.body []
+            [ fullClassView False model ]
+        |> Modal.footer []
+            [ Button.button [Button.attrs [onClick (Export Modal.hiddenState)]] [text "close"]
+            , Checkbox.custom [Checkbox.onCheck ToggleTableHeader] "Toggle Table header"]
+        |> Modal.view model.exportVisible
+
 {-| The view function -}
 
 view : Model -> Html Msg
@@ -200,9 +232,13 @@ view model =
                 [ Grid.col []
                     [ Checkbox.custom [Checkbox.onCheck ToggleMatrix] "Toggle matrix"]
                 , Grid.col []
-                    [ Button.button [Button.secondary, Button.attrs [ onClick RandomizeGroups]] [text "Shuffle groups"]]]
+                    [ Button.button [Button.secondary, Button.attrs [ onClick RandomizeGroups]] [text "Shuffle groups"]]
+                , Grid.col []
+                    [ Button.button [Button.secondary, Button.attrs [ onClick (Export Modal.visibleState)]] [text "Export"]]]
             , hr [] []
-            , fullClassView model]
+            , fullClassView True model
+            , hr [] []
+            , exportModal model]
         , Grid.col [Bootstrap.Grid.Col.sm3]
             [ Form.label [] [text "Students"]
             , studentList model.students

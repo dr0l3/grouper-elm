@@ -5,6 +5,7 @@ module Types exposing (..)
 -}
 
 import Http
+import Bootstrap.Modal as Modal
 
 {-| Some comment -}
 type alias SchoolClass =
@@ -36,12 +37,15 @@ type alias Model =
     , selectedSchoolClass: Maybe(SchoolClass)
     , debug: String
     , matrix: Bool
+    , exportVisible: Modal.State
+    , showTableHeaderModal: Bool
     , groups: List(Group)
     , students: List Student
     , removedStudents: List Student
     , schoolClasses: List SchoolClass
     , schools: List School
     , colors : List(String)}
+
 
 {-| Some comment -}
 type Msg
@@ -66,3 +70,5 @@ type Msg
   | Move(Student)
   | CancelMove
   | DropOn(Group)
+  | Export(Modal.State)
+  | ToggleTableHeader(Bool)

@@ -26,7 +26,11 @@ var _user$project$Types$Model = function (a) {
 									return function (j) {
 										return function (k) {
 											return function (l) {
-												return {movingStudent: a, numberOfGroups: b, selectedSchool: c, selectedSchoolClass: d, debug: e, matrix: f, groups: g, students: h, removedStudents: i, schoolClasses: j, schools: k, colors: l};
+												return function (m) {
+													return function (n) {
+														return {movingStudent: a, numberOfGroups: b, selectedSchool: c, selectedSchoolClass: d, debug: e, matrix: f, exportVisible: g, showTableHeaderModal: h, groups: i, students: j, removedStudents: k, schoolClasses: l, schools: m, colors: n};
+													};
+												};
 											};
 										};
 									};
@@ -38,6 +42,12 @@ var _user$project$Types$Model = function (a) {
 			};
 		};
 	};
+};
+var _user$project$Types$ToggleTableHeader = function (a) {
+	return {ctor: 'ToggleTableHeader', _0: a};
+};
+var _user$project$Types$Export = function (a) {
+	return {ctor: 'Export', _0: a};
 };
 var _user$project$Types$DropOn = function (a) {
 	return {ctor: 'DropOn', _0: a};

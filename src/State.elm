@@ -9,12 +9,13 @@ import Random.List
 import Types exposing (..)
 import Rest exposing (..)
 import Util.Util exposing (..)
+import Bootstrap.Modal as Modal
 
 
 {-| The init function -}
 init : (Model, Cmd Msg)
 init =
-      ( Model Nothing 1 Nothing Nothing "" False [] [] [] [] []
+      ( Model Nothing 1 Nothing Nothing "" False Modal.hiddenState True [] [] [] [] []
       ["#29c6cd","#f6e4c4", "#fea386", "#2980b9", "#a2d5f2", "#1fab89", "#aea1ea", "#ebe9f6", "#ffce3e", "#ff4D4D", "#ff5200", "#ebe9f6" ]
       , getSchools
       )
@@ -140,3 +141,9 @@ update msg model =
 
     CancelMove ->
         ({model | movingStudent = Nothing}, Cmd.none)
+
+    Export modalstate ->
+        ({model | exportVisible = modalstate}, Cmd.none)
+
+    ToggleTableHeader showHeader ->
+        ({model | showTableHeaderModal = showHeader}, Cmd.none)
