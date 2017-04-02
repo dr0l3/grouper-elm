@@ -218,7 +218,7 @@ exportModal model =
             [ fullClassView False model ]
         |> Modal.footer []
             [ Button.button [Button.attrs [onClick (Export Modal.hiddenState)]] [text "close"]
-            , Checkbox.custom [Checkbox.onCheck ToggleTableHeader] "Toggle Table header"
+            , Checkbox.custom [Checkbox.onCheck ToggleTableHeader, Checkbox.disabled (not model.matrix)] "Toggle Table header"
             , Checkbox.custom [Checkbox.onCheck ToggleMatrix] "Toggle Matrix"]
         |> Modal.view model.exportVisible
 

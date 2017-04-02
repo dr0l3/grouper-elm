@@ -138,7 +138,6 @@ update msg model =
 
         in
             ({model | movingStudent = Nothing, groups = addedGroup}, Cmd.none)
-            {-(model, Cmd.none)-}
 
     CancelMove ->
         ({model | movingStudent = Nothing}, Cmd.none)
