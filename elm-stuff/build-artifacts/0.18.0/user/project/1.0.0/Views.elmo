@@ -231,8 +231,14 @@ var _user$project$Views$studentTd = F2(
 					_1: {
 						ctor: '::',
 						_0: _rundis$elm_bootstrap$Bootstrap_Table$cellAttr(
-							_user$project$Util_DragAndDrop$onDragEnd(_user$project$Types$CancelMove)),
-						_1: {ctor: '[]'}
+							_user$project$Util_DragAndDrop$onDrop(
+								_user$project$Types$SwapStudents(student))),
+						_1: {
+							ctor: '::',
+							_0: _rundis$elm_bootstrap$Bootstrap_Table$cellAttr(
+								_user$project$Util_DragAndDrop$onDragEnd(_user$project$Types$CancelMove)),
+							_1: {ctor: '[]'}
+						}
 					}
 				}
 			}
@@ -437,8 +443,13 @@ var _user$project$Views$studentView = F2(
 						_user$project$Types$Move(student)),
 					_1: {
 						ctor: '::',
-						_0: A2(_elm_lang$html$Html_Attributes$attribute, 'ondragstart', 'event.dataTransfer.setData(\"text/plain\", \"dummy\")'),
-						_1: {ctor: '[]'}
+						_0: _user$project$Util_DragAndDrop$onDrop(
+							_user$project$Types$SwapStudents(student)),
+						_1: {
+							ctor: '::',
+							_0: A2(_elm_lang$html$Html_Attributes$attribute, 'ondragstart', 'event.dataTransfer.setData(\"text/plain\", \"dummy\")'),
+							_1: {ctor: '[]'}
+						}
 					}
 				}
 			}
@@ -446,16 +457,7 @@ var _user$project$Views$studentView = F2(
 		var nondndattrs = {
 			ctor: '::',
 			_0: _elm_lang$html$Html_Attributes$class('text-center'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$style(
-					{
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'min-width', _1: '120px'},
-						_1: {ctor: '[]'}
-					}),
-				_1: {ctor: '[]'}
-			}
+			_1: {ctor: '[]'}
 		};
 		var divattrs = function () {
 			var _p11 = dnd;
@@ -478,14 +480,65 @@ var _user$project$Views$studentView = F2(
 				_1: {ctor: '[]'}
 			});
 	});
+var _user$project$Views$nonMatrixGroupTitle = F2(
+	function (dnd, group) {
+		var dndattrs = {
+			ctor: '::',
+			_0: A2(_elm_lang$html$Html_Attributes$attribute, 'ondragover', 'return false'),
+			_1: {
+				ctor: '::',
+				_0: _user$project$Util_DragAndDrop$onDrop(
+					_user$project$Types$DropOn(group)),
+				_1: {ctor: '[]'}
+			}
+		};
+		var nondndattrs = {
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('text-center'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'margin-bottom', _1: '5px'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'text-decoration', _1: 'underline'},
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}
+		};
+		var divattrs = function () {
+			var _p12 = dnd;
+			if (_p12 === false) {
+				return nondndattrs;
+			} else {
+				return A2(_elm_lang$core$Basics_ops['++'], nondndattrs, dndattrs);
+			}
+		}();
+		return A2(
+			_elm_lang$html$Html$div,
+			divattrs,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Group ',
+						_user$project$Util_Util$groupNumberToGroupMarker(group.number))),
+				_1: {ctor: '[]'}
+			});
+	});
 var _user$project$Views$nonmatrixGroupView = F2(
 	function (dnd, group) {
 		var color = function () {
-			var _p12 = group.color;
-			if (_p12.ctor === 'Nothing') {
+			var _p13 = group.color;
+			if (_p13.ctor === 'Nothing') {
 				return 'white';
 			} else {
-				return _p12._0;
+				return _p13._0;
 			}
 		}();
 		var dndattrs = {
@@ -510,15 +563,19 @@ var _user$project$Views$nonmatrixGroupView = F2(
 						_1: {
 							ctor: '::',
 							_0: {ctor: '_Tuple2', _0: 'margin-bottom', _1: '10px'},
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'min-width', _1: '120px'},
+								_1: {ctor: '[]'}
+							}
 						}
 					}
 				}),
 			_1: {ctor: '[]'}
 		};
 		var divattrs = function () {
-			var _p13 = dnd;
-			if (_p13 === false) {
+			var _p14 = dnd;
+			if (_p14 === false) {
 				return nondndattrs;
 			} else {
 				return A2(_elm_lang$core$Basics_ops['++'], nondndattrs, dndattrs);
@@ -532,21 +589,28 @@ var _user$project$Views$nonmatrixGroupView = F2(
 				_0: A2(
 					_elm_lang$html$Html$div,
 					divattrs,
-					A3(
-						_elm_lang$core$List$map2,
-						_user$project$Views$studentView,
-						A2(
-							_elm_lang$core$List$repeat,
-							_elm_lang$core$List$length(group.students),
-							dnd),
-						group.students)),
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						{
+							ctor: '::',
+							_0: A2(_user$project$Views$nonMatrixGroupTitle, dnd, group),
+							_1: {ctor: '[]'}
+						},
+						A3(
+							_elm_lang$core$List$map2,
+							_user$project$Views$studentView,
+							A2(
+								_elm_lang$core$List$repeat,
+								_elm_lang$core$List$length(group.students),
+								dnd),
+							group.students))),
 				_1: {ctor: '[]'}
 			});
 	});
 var _user$project$Views$fullClassView = F2(
 	function (dnd, model) {
-		var _p14 = model.matrix;
-		if (_p14 === false) {
+		var _p15 = model.matrix;
+		if (_p15 === false) {
 			return A2(
 				_rundis$elm_bootstrap$Bootstrap_Grid$row,
 				{ctor: '[]'},
@@ -606,7 +670,18 @@ var _user$project$Views$exportModal = function (model) {
 							_1: {ctor: '[]'}
 						},
 						'Toggle Table header'),
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_rundis$elm_bootstrap$Bootstrap_Form_Checkbox$custom,
+							{
+								ctor: '::',
+								_0: _rundis$elm_bootstrap$Bootstrap_Form_Checkbox$onCheck(_user$project$Types$ToggleMatrix),
+								_1: {ctor: '[]'}
+							},
+							'Toggle Matrix'),
+						_1: {ctor: '[]'}
+					}
 				}
 			},
 			A3(

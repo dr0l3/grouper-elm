@@ -1,7 +1,7 @@
 module Util.Util exposing (..)
 
 {-|
-@docs divideStudentsFixedAmountOfGroups, groupNumberToGroupMarker
+@docs divideStudentsFixedAmountOfGroups, groupNumberToGroupMarker, twoWayComparison
 -}
 
 import Types exposing (..)
@@ -31,3 +31,8 @@ groupNumberToGroupMarker number =
                                  Just val -> val
     in
         actualChar
+
+{-| Some comment -}
+twoWayComparison: a -> a -> a -> TwoWayCompare
+twoWayComparison element first second =
+    if element == first then First else if element == second then Second else Neither

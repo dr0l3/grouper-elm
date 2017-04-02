@@ -1,3 +1,7 @@
+var _user$project$Util_Util$twoWayComparison = F3(
+	function (element, first, second) {
+		return _elm_lang$core$Native_Utils.eq(element, first) ? _user$project$Types$First : (_elm_lang$core$Native_Utils.eq(element, second) ? _user$project$Types$Second : _user$project$Types$Neither);
+	});
 var _user$project$Util_Util$groupNumberToGroupMarker = function (number) {
 	var chars = {
 		ctor: '::',

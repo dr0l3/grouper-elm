@@ -353,7 +353,7 @@ var _user$project$State$update = F2(
 						{exportVisible: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
-			default:
+			case 'ToggleTableHeader':
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -361,11 +361,60 @@ var _user$project$State$update = F2(
 						{showTableHeaderModal: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			case 'ToggleColors':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{showColors: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				var _p13 = _p0._0;
+				var groups = function () {
+					var _p10 = model.movingStudent;
+					if (_p10.ctor === 'Nothing') {
+						return model.groups;
+					} else {
+						var _p12 = _p10._0;
+						return A2(
+							_elm_lang$core$List$map,
+							function (g) {
+								return _elm_lang$core$Native_Utils.update(
+									g,
+									{
+										students: A2(
+											_elm_lang$core$List$map,
+											function (s) {
+												var _p11 = A3(_user$project$Util_Util$twoWayComparison, s, _p12, _p13);
+												switch (_p11.ctor) {
+													case 'First':
+														return _p13;
+													case 'Second':
+														return _p12;
+													default:
+														return s;
+												}
+											},
+											g.students)
+									});
+							},
+							model.groups);
+					}
+				}();
+				var something = {ctor: '[]'};
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{groups: groups, movingStudent: _elm_lang$core$Maybe$Nothing}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 		}
 	});
 var _user$project$State$init = {
 	ctor: '_Tuple2',
-	_0: _user$project$Types$Model(_elm_lang$core$Maybe$Nothing)(1)(_elm_lang$core$Maybe$Nothing)(_elm_lang$core$Maybe$Nothing)('')(false)(_rundis$elm_bootstrap$Bootstrap_Modal$hiddenState)(true)(
+	_0: _user$project$Types$Model(_elm_lang$core$Maybe$Nothing)(1)(_elm_lang$core$Maybe$Nothing)(_elm_lang$core$Maybe$Nothing)('')(false)(_rundis$elm_bootstrap$Bootstrap_Modal$hiddenState)(true)(true)(
 		{ctor: '[]'})(
 		{ctor: '[]'})(
 		{ctor: '[]'})(

@@ -43,7 +43,7 @@ fullClassView dnd model =
 nonmatrixGroupView: Bool -> Group -> Grid.Column Msg
 nonmatrixGroupView dnd group =
     let
-        nondndattrs = [style [("border", "1px solid black"),("background-color", color), ("margin-bottom", "10px")]]
+        nondndattrs = [style [("border", "1px solid black"),("background-color", color), ("margin-bottom", "10px"), ("min-width", "120px")]]
         dndattrs = [attribute "ondragover" "return false", onDrop <| DropOn group]
         divattrs = case dnd of
             False -> nondndattrs
@@ -53,15 +53,27 @@ nonmatrixGroupView dnd group =
             Just val -> val
     in
         Grid.col []
-            [ div divattrs (List.map2 studentView (List.repeat (List.length group.students) dnd)  group.students)]
+            [ div divattrs ( [nonMatrixGroupTitle dnd group] ++ (List.map2 studentView (List.repeat (List.length group.students) dnd)  group.students))]
+
+nonMatrixGroupTitle: Bool -> Group -> Html.Html Msg
+nonMatrixGroupTitle dnd group =
+    let
+        nondndattrs = [ class "text-center", style [("margin-bottom", "5px"), ("text-decoration", "underline")]]
+        dndattrs = [attribute "ondragover" "return false", onDrop <| DropOn group ]
+        divattrs = case dnd of
+                False -> nondndattrs
+                True -> nondndattrs ++ dndattrs
+    in
+        div divattrs [ text ("Group " ++ (groupNumberToGroupMarker group.number))]
 
 studentView: Bool -> Student -> Html Msg
 studentView dnd student =
     let
-        nondndattrs = [ class "text-center", style [("min-width", "120px")]]
+        nondndattrs = [ class "text-center"]
         dndattrs = [ attribute "draggable" "true"
                    , onDragEnd <| CancelMove
                    , onDragStart <| Move student
+                   , onDrop <| SwapStudents student
                    , attribute "ondragstart" "event.dataTransfer.setData(\"text/plain\", \"dummy\")"]
         divattrs = case dnd of
             False -> nondndattrs
@@ -122,6 +134,7 @@ studentTd dnd student =
         dndattrs = [ cellAttr (attribute "draggable" "true")
                    , cellAttr (onDragStart <| Move student)
                    , cellAttr (attribute "ondragstart" "event.dataTransfer.setData(\"text/plain\", \"dummy\")")
+                   , cellAttr (onDrop <| SwapStudents student)
                    , cellAttr (onDragEnd <| CancelMove)]
         cellattrs = case dnd of
             False -> nondndattrs
@@ -205,7 +218,8 @@ exportModal model =
             [ fullClassView False model ]
         |> Modal.footer []
             [ Button.button [Button.attrs [onClick (Export Modal.hiddenState)]] [text "close"]
-            , Checkbox.custom [Checkbox.onCheck ToggleTableHeader] "Toggle Table header"]
+            , Checkbox.custom [Checkbox.onCheck ToggleTableHeader] "Toggle Table header"
+            , Checkbox.custom [Checkbox.onCheck ToggleMatrix] "Toggle Matrix"]
         |> Modal.view model.exportVisible
 
 {-| The view function -}

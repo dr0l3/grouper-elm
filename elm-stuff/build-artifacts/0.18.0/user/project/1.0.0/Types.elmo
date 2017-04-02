@@ -28,7 +28,9 @@ var _user$project$Types$Model = function (a) {
 											return function (l) {
 												return function (m) {
 													return function (n) {
-														return {movingStudent: a, numberOfGroups: b, selectedSchool: c, selectedSchoolClass: d, debug: e, matrix: f, exportVisible: g, showTableHeaderModal: h, groups: i, students: j, removedStudents: k, schoolClasses: l, schools: m, colors: n};
+														return function (o) {
+															return {movingStudent: a, numberOfGroups: b, selectedSchool: c, selectedSchoolClass: d, debug: e, matrix: f, exportVisible: g, showTableHeaderModal: h, showColors: i, groups: j, students: k, removedStudents: l, schoolClasses: m, schools: n, colors: o};
+														};
 													};
 												};
 											};
@@ -42,6 +44,15 @@ var _user$project$Types$Model = function (a) {
 			};
 		};
 	};
+};
+var _user$project$Types$Neither = {ctor: 'Neither'};
+var _user$project$Types$Second = {ctor: 'Second'};
+var _user$project$Types$First = {ctor: 'First'};
+var _user$project$Types$SwapStudents = function (a) {
+	return {ctor: 'SwapStudents', _0: a};
+};
+var _user$project$Types$ToggleColors = function (a) {
+	return {ctor: 'ToggleColors', _0: a};
 };
 var _user$project$Types$ToggleTableHeader = function (a) {
 	return {ctor: 'ToggleTableHeader', _0: a};

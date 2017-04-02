@@ -1,7 +1,7 @@
 module Types exposing (..)
 
 {-|
-@docs Styles, SchoolClass, School, Student, Group, Alias, Msg
+@docs Styles, SchoolClass, School, Student, Group, Alias, Msg, TwoWayCompare
 -}
 
 import Http
@@ -39,12 +39,16 @@ type alias Model =
     , matrix: Bool
     , exportVisible: Modal.State
     , showTableHeaderModal: Bool
+    , showColors: Bool
     , groups: List(Group)
     , students: List Student
     , removedStudents: List Student
     , schoolClasses: List SchoolClass
     , schools: List School
     , colors : List(String)}
+
+{-| Some comment -}
+type TwoWayCompare = First | Second | Neither
 
 
 {-| Some comment -}
@@ -72,3 +76,5 @@ type Msg
   | DropOn(Group)
   | Export(Modal.State)
   | ToggleTableHeader(Bool)
+  | ToggleColors(Bool)
+  | SwapStudents(Student)
