@@ -20,3 +20,8 @@ cp index.html ./dist/index.html
 docker build -t <yournamehere> .
 ```
 
+## Run the packaged application
+
+```bash
+docker run -d -p 80:80 <yournamehere>
+```
